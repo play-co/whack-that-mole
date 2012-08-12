@@ -1,20 +1,39 @@
+/*
+ * The main application file, your game code begins here.
+ */
+
 import src.titlescreen as titlescreen;
 import src.gamescreen as gamescreen;
 
+/* Your application inherits from GC.Application, which is
+ * exported and instantiated when the game is run.
+ */
 exports = Class(GC.Application, function () {
+
+	/* Once the scene graph has been initialized and is ready
+	 * to go, you can add children to it so they can be seen.
+	 */
 	this.launchUI = function () {
 		this.view.addSubview(titlescreen);
 		this.view.addSubview(gamescreen);
 	};
 });
 
-titlescreen.on('startgame', function () {
+/* Listen for an event dispatched by the title screen when
+ * the start button has been pressed. Hide the title screen,
+ * show the game screen, then dispatch a custom event to the
+ * game screen to start the game.
+ */
+titlescreen.on('titlescreen:start', function () {
 	gamescreen.show();
 	titlescreen.hide();
-	gamescreen.emit('startgame');
+	gamescreen.emit('app:start');
 });
 
-gamescreen.on('endgame', function () {
+/* When the game screen has signalled that the game is over,
+ * show the title screen so that the user play play the game again.
+ */
+gamescreen.on('gamescreen:end', function () {
 	titlescreen.show();
 	gamescreen.hide();
 });

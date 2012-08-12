@@ -1,3 +1,8 @@
+/*
+ * The game screen is a singleton view that consists of
+ * a scoreboard and a collection of molehills.
+ */
+
 import animate;
 import device;
 import ui.View;
@@ -9,24 +14,6 @@ var score = 0,
 		high_score = 0,
 		hit_value = 100,
 		molehills = [];
-
-/* The game screen is a singleton view that consists of
- * a scoreboard and a collection of molehills.
- */
-var GameScreen = Class(ui.View, function (supr) {
-	this.init = function (opts) {
-		supr(this, 'init', arguments);
-
-		this.addSubview(scoreboard);
-		molehills.forEach((function (molehill) {
-			this.addSubview(molehill);
-			molehill.on('molehill:hit', function () {
-				update_score(hit_value);
-			});
-		}).bind(this));
-	};
-});
-
 
 /* The scoreboard displays the "ready, set, go" message and current score.
  */
@@ -48,7 +35,7 @@ function update_score (val) {
 }
 
 
-/* Create and position molehills.
+/* Create and position the molehills.
  */
 var x_offset = 5,
 		y_offset = 160,
@@ -70,14 +57,27 @@ for (var row = 0, len = layout.length, molehill; row < len; row++) {
 }
 
 
+/* The game screen view is a child of the main application.
+ * By adding the scoreboard and the molehills as it's children,
+ * everything is visible in the scene graph.
+ */
+var GameScreen = Class(ui.View, function (supr) {
+	this.init = function (opts) {
+		supr(this, 'init', arguments);
 
+		this.addSubview(scoreboard);
+		molehills.forEach((function (molehill) {
+			this.addSubview(molehill);
+			molehill.on('molehill:hit', function () {
+				update_score(hit_value);
+			});
+		}).bind(this));
+	};
+});
 
-GLOBAL.holes = molehills;
-
-/* Create a singleton game screen which is what this module exports.
+/* Export a game screen singleton as this module.
  */
 var gamescreen = exports = new GameScreen({
-	tag: 'game-screen',
 	x: 0,
 	y: 0,
 	width: device.width,
@@ -86,7 +86,10 @@ var gamescreen = exports = new GameScreen({
 	visible: false
 });
 
-gamescreen.on('startgame', start_game_flow);
+/* This event is emitted from the main application, which in
+ * turn got from the start button on the title screen.
+ */
+gamescreen.on('app:start', start_game_flow);
 
 
 /* Manages the intro animation sequence before starting game.
@@ -155,7 +158,7 @@ function end_game_flow () {
 	//slight delay before allowing a tap reset
 	setTimeout(function () {
 		GC.app.view.once('InputSelect', function () {
-			gamescreen.emit('endgame');
+			gamescreen.emit('gamescreen:end');
 			reset_game();
 		});
 	}, 2000);
