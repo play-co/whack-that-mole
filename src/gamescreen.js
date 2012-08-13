@@ -11,7 +11,7 @@ import ui.TextView;
 import src.MoleHill as MoleHill;
 
 var score = 0,
-		high_score = 30,
+		high_score = 19,
 		hit_value = 1,
 		molehills = [];
 
@@ -116,7 +116,7 @@ gamescreen.on('app:start', start_game_flow);
 /* Manages the intro animation sequence before starting game.
  */
 function start_game_flow () {
-	animate(scoreboard).wait(500)
+	animate(scoreboard).wait(1000)
 		.then(function () {
 			scoreboard.setText("Ready ...");
 		}).wait(1500).then(function () {
@@ -137,7 +137,7 @@ function start_game_flow () {
  * stop calling the moles and proceed to the end game.
  */
 function play_game () {
-	var game_length = 30000, //30 secs
+	var game_length = 20000, //20 secs
 			mole_interval = 600,
 			i = setInterval(tick, mole_interval);
 	
