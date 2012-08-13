@@ -64,7 +64,7 @@ exports = Class(ui.View, function (supr) {
 				.then((function () {
 					this.moleview.setImage(mole_normal_img);
 					this.activeMole = false;
-					this.activeInput = true;
+					this.activeInput = false;
 				}).bind(this));
 		}
 	};
@@ -72,6 +72,7 @@ exports = Class(ui.View, function (supr) {
 	this.anim_interval = null;
 	
 	this.endAnimation = function () {
+		this.activeInput = false;
 		this.mole_animator.then({y: mole_up}, 2000)
 			.then((function () {
 				var moleview = this.moleview;

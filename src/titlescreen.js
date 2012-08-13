@@ -1,16 +1,17 @@
 /*
  * The title screen consists of a background image and a
  * start button. When this button is pressed, and event is
- * emitted to itself, which is listened for in the top application,
- * at that point, the title screen is removed, and the game
- * screen shown.
+ * emitted to itself, which is listened for in the top-level
+ * application. When that happens, the title screen is removed,
+ * and the game screen shown.
  */
 
 import device;
+import sound;
 import ui.View;
 import ui.ImageView;
 
-/* Since the start button is drawn to the background image,
+/* Since the start button is a part the background image,
  * we just need to create and position an overlay view that
  * will register input events and act as button.
  */
@@ -31,11 +32,12 @@ var TitleScreen = Class(ui.ImageView, function (supr) {
 		
 		this.addSubview(startbutton);
 
-		/* Listening for a touch or click event, will dispatch a custom
-		 * event to the title screen, which is listened for in the
-		 * top-level application file.
+		/* Listening for a touch or click event, and will dispatch a
+		 * custom event to the title screen, which is listened for in
+		 * the top-level application file.
 		 */
 		startbutton.on('InputSelect', (function () {
+			sound.play('effect', 'pop');
 			this.emit('titlescreen:start');
 		}).bind(this));
 	};
