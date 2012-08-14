@@ -2,7 +2,7 @@
  * The main application file, your game code begins here.
  */
 
-import sound;
+//import sound;
 import src.titlescreen as titlescreen;
 import src.gamescreen as gamescreen;
 
@@ -14,9 +14,9 @@ exports = Class(GC.Application, function () {
 	/* Preload the audio files so they're ready to go.
 	 */
 	this.initUI = function () {
-		sound.preload('effect', 'pop');
-		sound.preload('effect', 'whack');
-		sound.preload('background', 'levelmusic');
+		//sound.preload('effect', 'pop');
+		//sound.preload('effect', 'whack');
+		//sound.preload('background', 'levelmusic');
 	};
 	
 	/* Once the scene graph has been initialized and is ready

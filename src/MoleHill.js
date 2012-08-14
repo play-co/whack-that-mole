@@ -1,5 +1,5 @@
 import animate;
-import sound;
+//import sound;
 import ui.View;
 import ui.ImageView;
 import ui.resource.Image as Image;
@@ -25,17 +25,19 @@ exports = Class(ui.View, function (supr) {
 
 		this.input_area.on('InputSelect', (function () {
 			if (this.activeInput) {
-				sound.play('effect', 'whack');
+				//sound.play('effect', 'whack');
 				this.emit('molehill:hit');
 				this.hitMole();
 			}
 		}).bind(this));
 
+		/* Object proprieties
+		 */
 		this.mole_animator = animate(this.moleview);
+		this.anim_interval = null;
+		this.activeMole = false;
+		this.activeInput = false;
 	};
-
-	this.activeMole = false;
-	this.activeInput = false;
 
 	this.showMole = function () {
 		if (this.activeMole === false) {
@@ -68,8 +70,6 @@ exports = Class(ui.View, function (supr) {
 				}).bind(this));
 		}
 	};
-
-	this.anim_interval = null;
 	
 	this.endAnimation = function () {
 		this.activeInput = false;

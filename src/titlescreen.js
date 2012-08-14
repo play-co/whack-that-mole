@@ -7,7 +7,7 @@
  */
 
 import device;
-import sound;
+//import sound;
 import ui.View;
 import ui.ImageView;
 
@@ -37,7 +37,7 @@ var TitleScreen = Class(ui.ImageView, function (supr) {
 		 * the top-level application file.
 		 */
 		startbutton.on('InputSelect', (function () {
-			sound.play('effect', 'pop');
+			//sound.play('effect', 'pop');
 			this.emit('titlescreen:start');
 		}).bind(this));
 	};
