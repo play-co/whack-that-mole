@@ -16,10 +16,10 @@ import ui.ImageView;
  * will register input events and act as button.
  */
 var startbutton = new ui.View({
-	x: 58,
-	y: 313,
-	width: 200,
-	height: 100
+  x: 58,
+  y: 313,
+  width: 200,
+  height: 100
 });
 
 /* The title screen is added to the scene graph when it becomes
@@ -27,28 +27,28 @@ var startbutton = new ui.View({
  * it adds the start button as a child.
  */
 var TitleScreen = Class(ui.ImageView, function (supr) {
-	this.init = function (opts) {
-		supr(this, 'init', arguments);
-		
-		this.addSubview(startbutton);
+  this.init = function (opts) {
+    supr(this, 'init', arguments);
+    
+    this.addSubview(startbutton);
 
-		/* Listening for a touch or click event, and will dispatch a
-		 * custom event to the title screen, which is listened for in
-		 * the top-level application file.
-		 */
-		startbutton.on('InputSelect', (function () {
-			//sound.play('effect', 'pop');
-			this.emit('titlescreen:start');
-		}).bind(this));
-	};
+    /* Listening for a touch or click event, and will dispatch a
+     * custom event to the title screen, which is listened for in
+     * the top-level application file.
+     */
+    startbutton.on('InputSelect', (function () {
+      //sound.play('effect', 'pop');
+      this.emit('titlescreen:start');
+    }).bind(this));
+  };
 });
 
 /* Create a title screen singleton and export it as this module.
  */
 exports = new TitleScreen({
-	x: 0,
-	y: 0,
-	width: device.width,
-	height: device.height,
-	image: "resources/images/title_screen.png"
+  x: 0,
+  y: 0,
+  width: device.width,
+  height: device.height,
+  image: "resources/images/title_screen.png"
 });
