@@ -26,8 +26,16 @@ var startbutton = new ui.View({
  * a child of the main application. When this class is instantiated,
  * it adds the start button as a child.
  */
-var TitleScreen = Class(ui.ImageView, function (supr) {
+exports = Class(ui.ImageView, function (supr) {
   this.init = function (opts) {
+		opts = merge(opts, {
+			x: 0,
+			y: 0,
+			width: device.width,
+			height: device.height,
+			image: "resources/images/title_screen.png"
+		});
+		
     supr(this, 'init', arguments);
     
     this.addSubview(startbutton);
@@ -41,14 +49,4 @@ var TitleScreen = Class(ui.ImageView, function (supr) {
       this.emit('titlescreen:start');
     }).bind(this));
   };
-});
-
-/* Create a title screen singleton and export it as this module.
- */
-exports = new TitleScreen({
-  x: 0,
-  y: 0,
-  width: device.width,
-  height: device.height,
-  image: "resources/images/title_screen.png"
 });

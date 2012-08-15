@@ -75,12 +75,21 @@ for (var row = 0, len = layout.length, molehill; row < len; row++) {
   }
 }
 
-/* The game screen view is a child of the main application.
+/* The GameScreen view is a child of the main application.
  * By adding the scoreboard and the molehills as it's children,
  * everything is visible in the scene graph.
  */
-var GameScreen = Class(ui.View, function (supr) {
+exports = Class(ui.View, function (supr) {
   this.init = function (opts) {
+		opts = merge(opts, {
+			x: 0,
+			y: 0,
+			width: device.width,
+			height: device.height,
+			backgroundColor: '#37B34A',
+			visible: false
+		});
+		
     supr(this, 'init', arguments);
 
     this.addSubview(scoreboard_holder);
@@ -94,24 +103,13 @@ var GameScreen = Class(ui.View, function (supr) {
         update_score(hit_value);
       });
     }
+
+		/* This event is emitted from the main application, which in
+		 * turn got from the start button on the title screen.
+		 */
+		this.on('app:start', start_game_flow);
   };
 });
-
-/* Export a game screen singleton as this module.
- */
-var gamescreen = exports = new GameScreen({
-  x: 0,
-  y: 0,
-  width: device.width,
-  height: device.height,
-  backgroundColor: '#37B34A',
-  visible: false
-});
-
-/* This event is emitted from the main application, which in
- * turn got from the start button on the title screen.
- */
-gamescreen.on('app:start', start_game_flow);
 
 /*
  * Game play

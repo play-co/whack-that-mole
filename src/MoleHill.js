@@ -1,8 +1,8 @@
 import animate;
-//import sound;
 import ui.View;
 import ui.ImageView;
 import ui.resource.Image as Image;
+//import src.soundassets as soundassets;
 
 var mole_normal_img = new Image({url: "resources/images/mole_normal.png"}),
     mole_hit_img = new Image({url: "resources/images/mole_hit.png"}),
@@ -25,7 +25,7 @@ exports = Class(ui.View, function (supr) {
 
     this._inputview.on('InputSelect', (function () {
       if (this.activeInput) {
-        //sound.play('effect', 'whack');
+        sound.play('whack');
         this.emit('molehill:hit');
         this.hitMole();
       }
