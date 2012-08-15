@@ -13,67 +13,9 @@ import src.MoleHill as MoleHill;
 var score = 0,
     high_score = 19,
     hit_value = 1,
-    molehills = [];
-
-/*
- * Layout
- */
-
-/* This is the brown background box that holds the text view.
- */
-var scoreboard_holder = new ui.View({
-  x: 0,
-  y: 0,
-  width: device.width,
-  height: 90,
-  autoSize: false,
-  backgroundColor: '#845e40',
-});
-
-/* The scoreboard displays the "ready, set, go" message,
- * the current score, and the end game message. Because
- * of the size differences, it's settings are updated
- * in the end game flow.
- */
-var scoreboard = new ui.TextView({
-  superview: scoreboard_holder,
-  x: 0,
-  y: 15,
-  width: device.width,
-  height: 50,
-  autoSize: false,
-  fontSize: 38,
-  verticalAlign: 'middle',
-  textAlign: 'center',
-  multiline: false,
-  color: '#fff'
-});
-
-function update_score (val) {
-  score = score + val;
-  scoreboard.setText(score.toString());
-}
-
-/* Create and position the molehills.
- */
-var x_offset = 5,
-    y_offset = 160,
-    y_pad = 25,
-    layout = [[1, 0, 1],
-              [0, 1, 0],
-              [1, 0, 1]];
-
-//set up mole holes
-for (var row = 0, len = layout.length, molehill; row < len; row++) {
-  for (var col = 0; col < len; col++) {
-    if (layout[row][col] !== 0) {
-      molehill = new MoleHill();
-      molehill.style.x = x_offset + col * molehill.style.width;
-      molehill.style.y = y_offset + row * (molehill.style.height + y_pad);
-      molehills.push(molehill);
-    }
-  }
-}
+    game_on = false,
+    molehills = [],
+    scoreboard;
 
 /* The GameScreen view is a child of the main application.
  * By adding the scoreboard and the molehills as it's children,
@@ -92,17 +34,7 @@ exports = Class(ui.View, function (supr) {
     
     supr(this, 'init', [opts]);
 
-    this.addSubview(scoreboard_holder);
-
-    for (var i = 0, len = molehills.length, molehill; i < len; i++) {
-      var molehill = molehills[i];
-      
-      this.addSubview(molehill);
-
-      molehill.on('molehill:hit', function () {
-        update_score(hit_value);
-      });
-    }
+    build_views(this);
 
     /* This event is emitted from the main application, which in
      * turn got from the start button on the title screen.
@@ -110,6 +42,72 @@ exports = Class(ui.View, function (supr) {
     this.on('app:start', start_game_flow);
   };
 });
+
+/*
+ * Layout
+ */
+
+function build_views (parent) {
+  /* This is the brown background box that holds the text view.
+   */
+  var scoreboard_holder = new ui.View({
+    superview: parent,
+    x: 0,
+    y: 0,
+    width: device.width,
+    height: 90,
+    autoSize: false,
+    backgroundColor: '#845e40',
+  });
+
+  /* The scoreboard displays the "ready, set, go" message,
+   * the current score, and the end game message. Because
+   * of the size differences, it's settings are updated
+   * in the end game flow.
+   */
+  scoreboard = new ui.TextView({
+    superview: scoreboard_holder,
+    x: 0,
+    y: 15,
+    width: device.width,
+    height: 50,
+    autoSize: false,
+    fontSize: 38,
+    verticalAlign: 'middle',
+    textAlign: 'center',
+    multiline: false,
+    color: '#fff'
+  });
+
+  /* Create and position the molehills.
+   */
+  var x_offset = 5,
+      y_offset = 160,
+      y_pad = 25,
+      layout = [[1, 0, 1],
+                [0, 1, 0],
+                [1, 0, 1]];
+
+  for (var row = 0, len = layout.length, molehill; row < len; row++) {
+    for (var col = 0; col < len; col++) {
+      if (layout[row][col] !== 0) {
+        molehill = new MoleHill();
+        molehill.style.x = x_offset + col * molehill.style.width;
+        molehill.style.y = y_offset + row * (molehill.style.height + y_pad);
+        molehills.push(molehill);
+        parent.addSubview(molehill);
+        
+        //update score on hit event
+        molehill.on('molehill:hit', function () {
+          if (game_on) {
+            score = score + hit_value;
+            scoreboard.setText(score.toString());
+          }
+        });
+      }
+    }
+  }
+}
 
 /*
  * Game play
@@ -125,10 +123,8 @@ function start_game_flow () {
       scoreboard.setText("Set ...");
     }).wait(1500).then(function () {
       scoreboard.setText("Whack that Mole!");
-      //keep text up for a bit longer
-      setTimeout(function () {
-        update_score(0);
-      }, 3000);
+      //start game ...
+      game_on = true;
       play_game();
     });
 }
@@ -142,8 +138,9 @@ function play_game () {
   var game_length = 20000, //20 secs
       mole_interval = 600,
       i = setInterval(tick, mole_interval);
-  
+
   setTimeout(function () {
+    game_on = false;
     clearInterval(i);
     setTimeout(end_game_flow, mole_interval*2);
   }, game_length);
@@ -175,6 +172,7 @@ function end_game_flow () {
     textAlign: 'left',
     multiline: true
   });
+  
   //check for high-score and do appropriate animation
   if (score > high_score) {
     high_score = score;
