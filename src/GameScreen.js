@@ -48,25 +48,14 @@ exports = Class(ui.View, function (supr) {
  */
 
 function build_views (parent) {
-  /* This is the brown background box that holds the text view.
-   */
-  var scoreboard_holder = new ui.View({
-    superview: parent,
-    x: 0,
-    y: 0,
-    width: device.width,
-    height: 90,
-    autoSize: false,
-    backgroundColor: '#845e40',
-  });
 
   /* The scoreboard displays the "ready, set, go" message,
-   * the current score, and the end game message. Because
-   * of the size differences, it's settings are updated
-   * in the end game flow.
+   * the current score, and the end game message. We'll use
+   * variable at module-level scope since we'll be using it
+   * throughout the file.
    */
   scoreboard = new ui.TextView({
-    superview: scoreboard_holder,
+    superview: parent,
     x: 0,
     y: 15,
     width: device.width,
@@ -142,7 +131,7 @@ function play_game () {
   setTimeout(function () {
     game_on = false;
     clearInterval(i);
-    setTimeout(end_game_flow, mole_interval*2);
+    setTimeout(end_game_flow, mole_interval * 2);
   }, game_length);
 }
 
