@@ -81,16 +81,16 @@ for (var row = 0, len = layout.length, molehill; row < len; row++) {
  */
 exports = Class(ui.View, function (supr) {
   this.init = function (opts) {
-		opts = merge(opts, {
-			x: 0,
-			y: 0,
-			width: device.width,
-			height: device.height,
-			backgroundColor: '#37B34A',
-			visible: false
-		});
-		
-    supr(this, 'init', arguments);
+    opts = merge(opts, {
+      x: 0,
+      y: 0,
+      width: device.width,
+      height: device.height,
+      backgroundColor: '#37B34A',
+      visible: false
+    });
+    
+    supr(this, 'init', [opts]);
 
     this.addSubview(scoreboard_holder);
 
@@ -104,10 +104,10 @@ exports = Class(ui.View, function (supr) {
       });
     }
 
-		/* This event is emitted from the main application, which in
-		 * turn got from the start button on the title screen.
-		 */
-		this.on('app:start', start_game_flow);
+    /* This event is emitted from the main application, which in
+     * turn got from the start button on the title screen.
+     */
+    this.on('app:start', start_game_flow);
   };
 });
 
@@ -186,15 +186,13 @@ function end_game_flow () {
     molehills[(molehills.length-1) / 2 | 0].endAnimation(true);
     var s = (score === 1) ? "mole" : "moles",
         taunt = taunt_messages[Math.random() * taunt_messages.length | 0];
-    scoreboard.setText("You whacked " + score + " " + s + ".\n" +
-                       taunt + "\n" +
-                       "Tap to play again");
+    scoreboard.setText("You whacked " + score + " " + s + ".\n" + taunt + "\nTap to play again");
   }
 
   //slight delay before allowing a tap reset
   setTimeout(function () {
     GC.app.view.once('InputSelect', function () {
-      gamescreen.emit('gamescreen:end');
+      GC.app.emit('gamescreen:end');
       reset_game();
     });
   }, 2000);

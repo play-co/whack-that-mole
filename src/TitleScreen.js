@@ -28,15 +28,16 @@ var startbutton = new ui.View({
  */
 exports = Class(ui.ImageView, function (supr) {
   this.init = function (opts) {
-		opts = merge(opts, {
-			x: 0,
-			y: 0,
-			width: device.width,
-			height: device.height,
-			image: "resources/images/title_screen.png"
-		});
-		
-    supr(this, 'init', arguments);
+    opts = merge(opts, {
+      x: 0,
+      y: 0,
+      width: device.width,
+      height: device.height,
+      image: "resources/images/title_screen.png",
+      visible: true
+    });
+    
+    supr(this, 'init', [opts]);
     
     this.addSubview(startbutton);
 
@@ -46,7 +47,7 @@ exports = Class(ui.ImageView, function (supr) {
      */
     startbutton.on('InputSelect', (function () {
       //sound.play('effect', 'pop');
-      this.emit('titlescreen:start');
+      GC.app.emit('titlescreen:start');
     }).bind(this));
   };
 });

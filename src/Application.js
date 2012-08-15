@@ -17,16 +17,15 @@ exports = Class(GC.Application, function () {
 		var titlescreen = new TitleScreen(),
 				gamescreen = new GameScreen();
 		
-    
+    this.view.addSubview(titlescreen);
     this.view.addSubview(gamescreen);
-		this.view.addSubview(titlescreen);
 
 		/* Listen for an event dispatched by the title screen when
 		 * the start button has been pressed. Hide the title screen,
 		 * show the game screen, then dispatch a custom event to the
 		 * game screen to start the game.
 		 */
-		titlescreen.on('titlescreen:start', function () {
+		GC.app.on('titlescreen:start', function () {
 			gamescreen.show();
 			titlescreen.hide();
 			gamescreen.emit('app:start');
@@ -35,7 +34,7 @@ exports = Class(GC.Application, function () {
 		/* When the game screen has signalled that the game is over,
 		 * show the title screen so that the user may play the game again.
 		 */
-		gamescreen.on('gamescreen:end', function () {
+		GC.app.on('gamescreen:end', function () {
 			titlescreen.show();
 			gamescreen.hide();
 		});
