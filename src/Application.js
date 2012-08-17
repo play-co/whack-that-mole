@@ -11,42 +11,42 @@ import src.soundcontroller as soundcontroller;
  */
 exports = Class(GC.Application, function () {
 
-  /* Run after the engine is created and the scene graph is in
-   * place, but before the resources have been loaded.
-   */
-  this.initUI = function () {
-    var titlescreen = new TitleScreen(),
-        gamescreen = new GameScreen();
-    
-    this.view.addSubview(titlescreen);
-    this.view.addSubview(gamescreen);
+	/* Run after the engine is created and the scene graph is in
+	 * place, but before the resources have been loaded.
+	 */
+	this.initUI = function () {
+		var titlescreen = new TitleScreen(),
+				gamescreen = new GameScreen();
+		
+		this.view.addSubview(titlescreen);
+		this.view.addSubview(gamescreen);
 
-    var sound = soundcontroller.getSound();
-    
-    /* Listen for an event dispatched by the title screen when
-     * the start button has been pressed. Hide the title screen,
-     * show the game screen, then dispatch a custom event to the
-     * game screen to start the game.
-     */
-    GC.app.on('titlescreen:start', function () {
-      sound.play('levelmusic');
-      gamescreen.show();
-      titlescreen.hide();
-      gamescreen.emit('app:start');
-    });
-    
-    /* When the game screen has signalled that the game is over,
-     * show the title screen so that the user may play the game again.
-     */
-    GC.app.on('gamescreen:end', function () {
-      sound.stop('levelmusic');
-      titlescreen.show();
-      gamescreen.hide();
-    });
-  };
-  
-  /* Executed after the asset resources have been loaded.
-   * If there is a splash screen, it's removed.
-   */
-  this.launchUI = function () {};
+		var sound = soundcontroller.getSound();
+		
+		/* Listen for an event dispatched by the title screen when
+		 * the start button has been pressed. Hide the title screen,
+		 * show the game screen, then dispatch a custom event to the
+		 * game screen to start the game.
+		 */
+		titlescreen.on('titlescreen:start', function () {
+			sound.play('levelmusic');
+			gamescreen.show();
+			titlescreen.hide();
+			gamescreen.emit('app:start');
+		});
+		
+		/* When the game screen has signalled that the game is over,
+		 * show the title screen so that the user may play the game again.
+		 */
+		gamescreen.on('gamescreen:end', function () {
+			sound.stop('levelmusic');
+			titlescreen.show();
+			gamescreen.hide();
+		});
+	};
+	
+	/* Executed after the asset resources have been loaded.
+	 * If there is a splash screen, it's removed.
+	 */
+	this.launchUI = function () {};
 });
