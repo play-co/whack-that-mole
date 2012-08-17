@@ -15,7 +15,10 @@ import src.MoleHill as MoleHill;
 var score = 0,
 		high_score = 19,
 		hit_value = 1,
-		game_on = false;
+		mole_interval = 600,
+		game_on = false,
+		game_length = 20000, //20 secs
+		countdown_secs = game_length / 1000;
 
 /* The GameScreen view is a child of the main application.
  * By adding the scoreboard and the molehills as it's children,
@@ -90,6 +93,19 @@ exports = Class(ui.View, function (supr) {
 				}
 			}
 		}
+
+		//Set up countdown timer
+		this._countdown = new ui.TextView({
+			superview: this._scoreboard,
+			visible: false,
+			x: 260,
+			y: -5,
+			width: 50,
+			height: 50,
+			fontSize: 24,
+			color: '#fff',
+			opacity: 0.7
+		});
 	};
 });
 
@@ -121,15 +137,27 @@ function start_game_flow () {
  * stop calling the moles and proceed to the end game.
  */
 function play_game () {
-	var game_length = 20000, //20 secs
-			mole_interval = 600,
-			i = setInterval(tick.bind(this), mole_interval);
+	var i = setInterval(tick.bind(this), mole_interval),
+			j = setInterval(update_countdown.bind(this), 1000);
 
 	setTimeout(bind(this, function () {
 		game_on = false;
 		clearInterval(i);
+		clearInterval(j);
 		setTimeout(end_game_flow.bind(this), mole_interval * 2);
+		this._countdown.setText(":00");
 	}), game_length);
+
+	//Make countdown timer visible, remove start message if still there.
+	setTimeout(bind(this, function () {
+		this._scoreboard.setText(score.toString());
+		this._countdown.style.visible = true;
+	}), game_length * 0.25);
+
+	//Running out of time! Set countdown timer red.
+	setTimeout(bind(this, function () {
+		this._countdown.updateOpts({color: '#CC0066'});
+	}), game_length * 0.75);
 }
 
 /* Pick a random, non-active, mole from our molehills.
@@ -144,11 +172,19 @@ function tick () {
 	molehill.showMole();
 }
 
+/* Updates the countdown timer, pad out leading zeros.
+ */
+function update_countdown () {
+	countdown_secs -= 1;
+	this._countdown.setText(":" + (("00" + countdown_secs).slice(-2)));
+}
+
 /* Check for high-score and play the ending animation.
  * Add a click-handler to the screen to return to the title
  * screen so we may play again.
  */
 function end_game_flow () {
+	this._countdown.setText(''); //clear countdown text
 	//resize scoreboard text to fit everything
 	this._scoreboard.updateOpts({
 		text: '',
@@ -190,17 +226,21 @@ function emit_endgame_event () {
  */
 function reset_game () {
 	score = 0;
+	countdown_secs = game_length / 1000;
 	this._scoreboard.setText('');
 	this._molehills.forEach(function (molehill) {
 		molehill.resetMole();
 	});
 	this._scoreboard.updateOpts({
-		text: '',
 		x: 0,
 		fontSize: 38,
 		verticalAlign: 'middle',
 		textAlign: 'center',
 		multiline: false
+	});
+	this._countdown.updateOpts({
+		visible: false,
+		color: '#fff'
 	});
 }
 
