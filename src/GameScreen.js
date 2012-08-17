@@ -10,12 +10,12 @@ import ui.ImageView;
 import ui.TextView;
 import src.MoleHill as MoleHill;
 
+/* Some game constants.
+ */
 var score = 0,
 		high_score = 19,
 		hit_value = 1,
-		game_on = false,
-		molehills = [],
-		scoreboard;
+		game_on = false;
 
 /* The GameScreen view is a child of the main application.
  * By adding the scoreboard and the molehills as it's children,
@@ -34,69 +34,64 @@ exports = Class(ui.View, function (supr) {
 		
 		supr(this, 'init', [opts]);
 
-		build_views(this);
+		/* The scoreboard displays the "ready, set, go" message,
+		 * the current score, and the end game message. We'll set
+		 * it as a hidden property on our class since we'll use it
+		 * throughout the game.
+		 */
+		this._scoreboard = new ui.TextView({
+			superview: this,
+			x: 0,
+			y: 15,
+			width: device.width,
+			height: 50,
+			autoSize: false,
+			fontSize: 38,
+			verticalAlign: 'middle',
+			textAlign: 'center',
+			multiline: false,
+			color: '#fff'
+		});
 
-		/* This event is emitted from the main application, which in
-		 * turn got from the start button on the title screen.
+		/* The start event is emitted from the start button via the main application.
 		 */
 		this.on('app:start', start_game_flow.bind(this));
 	};
-});
 
-/*
- * Layout
- */
-
-function build_views (parent) {
-
-	/* The scoreboard displays the "ready, set, go" message,
-	 * the current score, and the end game message. We'll use
-	 * variable at module-level scope since we'll be using it
-	 * throughout the file.
+	/*
+	 * Layout the molehills before the view's first render.
 	 */
-	scoreboard = new ui.TextView({
-		superview: parent,
-		x: 0,
-		y: 15,
-		width: device.width,
-		height: 50,
-		autoSize: false,
-		fontSize: 38,
-		verticalAlign: 'middle',
-		textAlign: 'center',
-		multiline: false,
-		color: '#fff'
-	});
+	this.buildView = function () {
+		var x_offset = 5,
+				y_offset = 160,
+				y_pad = 25,
+				layout = [[1, 0, 1],
+									[0, 1, 0],
+									[1, 0, 1]];
 
-	/* Create and position the molehills.
-	 */
-	var x_offset = 5,
-			y_offset = 160,
-			y_pad = 25,
-			layout = [[1, 0, 1],
-								[0, 1, 0],
-								[1, 0, 1]];
-
-	for (var row = 0, len = layout.length, molehill; row < len; row++) {
-		for (var col = 0; col < len; col++) {
-			if (layout[row][col] !== 0) {
-				molehill = new MoleHill();
-				molehill.style.x = x_offset + col * molehill.style.width;
-				molehill.style.y = y_offset + row * (molehill.style.height + y_pad);
-				molehills.push(molehill);
-				parent.addSubview(molehill);
-				
-				//update score on hit event
-				molehill.on('molehill:hit', function () {
-					if (game_on) {
-						score = score + hit_value;
-						scoreboard.setText(score.toString());
-					}
-				});
+		this._molehills = [];
+		
+		for (var row = 0, len = layout.length; row < len; row++) {
+			for (var col = 0; col < len; col++) {
+				if (layout[row][col] !== 0) {
+					var molehill = new MoleHill();
+					molehill.style.x = x_offset + col * molehill.style.width;
+					molehill.style.y = y_offset + row * (molehill.style.height + y_pad);
+					this.addSubview(molehill);
+					this._molehills.push(molehill);
+					
+					//update score on hit event
+					molehill.on('molehill:hit', bind(this, function () {
+						if (game_on) {
+							score = score + hit_value;
+							this._scoreboard.setText(score.toString());
+						}
+					}));
+				}
 			}
 		}
-	}
-}
+	};
+});
 
 /*
  * Game play
@@ -105,6 +100,8 @@ function build_views (parent) {
 /* Manages the intro animation sequence before starting game.
  */
 function start_game_flow () {
+	var scoreboard = this._scoreboard;
+	
 	animate(scoreboard).wait(1000)
 		.then(function () {
 			scoreboard.setText("Ready ...");
@@ -126,7 +123,7 @@ function start_game_flow () {
 function play_game () {
 	var game_length = 20000, //20 secs
 			mole_interval = 600,
-			i = setInterval(tick, mole_interval);
+			i = setInterval(tick.bind(this), mole_interval);
 
 	setTimeout(bind(this, function () {
 		game_on = false;
@@ -138,11 +135,11 @@ function play_game () {
 /* Pick a random, non-active, mole from our molehills.
  */
 function tick () {
-	var len = molehills.length,
-			molehill = molehills[Math.random() * len | 0];
+	var len = this._molehills.length,
+			molehill = this._molehills[Math.random() * len | 0];
 	
 	while (molehill.activeMole) {
-		molehill = molehills[Math.random() * len | 0];
+		molehill = this._molehills[Math.random() * len | 0];
 	}
 	molehill.showMole();
 }
@@ -153,7 +150,7 @@ function tick () {
  */
 function end_game_flow () {
 	//resize scoreboard text to fit everything
-	scoreboard.updateOpts({
+	this._scoreboard.updateOpts({
 		text: '',
 		x: 10,
 		fontSize: 17,
@@ -165,15 +162,15 @@ function end_game_flow () {
 	//check for high-score and do appropriate animation
 	if (score > high_score) {
 		high_score = score;
-		molehills.forEach(function (molehill) {
+		this._molehills.forEach(function (molehill) {
 			molehill.endAnimation();
 		});
-		scoreboard.setText("You whacked " + score + " moles\nThat's a new high score!\nTap to play again");
+		this._scoreboard.setText("You whacked " + score + " moles\nThat's a new high score!\nTap to play again");
 	} else {
-		molehills[(molehills.length-1) / 2 | 0].endAnimation(true);
+		this._molehills[(this._molehills.length-1) / 2 | 0].endAnimation(true);
 		var s = (score === 1) ? "mole" : "moles",
 				taunt = taunt_messages[Math.random() * taunt_messages.length | 0];
-		scoreboard.setText("You whacked " + score + " " + s + ".\n" + taunt + "\nTap to play again");
+		this._scoreboard.setText("You whacked " + score + " " + s + ".\n" + taunt + "\nTap to play again");
 	}
 
 	//slight delay before allowing a tap reset
@@ -185,7 +182,7 @@ function end_game_flow () {
 function emit_endgame_event () {
 	this.once('InputSelect', function () {
 		this.emit('gamescreen:end');
-		reset_game();
+		reset_game.call(this);
 	});
 }
 	
@@ -193,11 +190,11 @@ function emit_endgame_event () {
  */
 function reset_game () {
 	score = 0;
-	scoreboard.setText('');
-	molehills.forEach(function (molehill) {
+	this._scoreboard.setText('');
+	this._molehills.forEach(function (molehill) {
 		molehill.resetMole();
 	});
-	scoreboard.updateOpts({
+	this._scoreboard.updateOpts({
 		text: '',
 		x: 0,
 		fontSize: 38,
