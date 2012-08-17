@@ -18,8 +18,8 @@ exports = Class(GC.Application, function () {
 		var titlescreen = new TitleScreen(),
 				gamescreen = new GameScreen();
 		
-		this.view.addSubview(titlescreen);
-		this.view.addSubview(gamescreen);
+		//GC.app.view (or this.view here) is a StackView at the root of the scene graph
+		this.view.push(titlescreen);
 
 		var sound = soundcontroller.getSound();
 		
@@ -30,8 +30,7 @@ exports = Class(GC.Application, function () {
 		 */
 		titlescreen.on('titlescreen:start', function () {
 			sound.play('levelmusic');
-			gamescreen.show();
-			titlescreen.hide();
+			GC.app.view.push(gamescreen);
 			gamescreen.emit('app:start');
 		});
 		
@@ -40,8 +39,7 @@ exports = Class(GC.Application, function () {
 		 */
 		gamescreen.on('gamescreen:end', function () {
 			sound.stop('levelmusic');
-			titlescreen.show();
-			gamescreen.hide();
+			GC.app.view.pop();
 		});
 	};
 	
