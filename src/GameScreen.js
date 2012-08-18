@@ -292,4 +292,4 @@ localized_strings['en'].taunts = [
 ];
 
 //object of strings used in game
-text = localized_strings[lang.toLowerCase()];
+var text = localized_strings[lang.toLowerCase()];
