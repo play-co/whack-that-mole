@@ -18,7 +18,8 @@ var score = 0,
 		mole_interval = 600,
 		game_on = false,
 		game_length = 20000, //20 secs
-		countdown_secs = game_length / 1000;
+		countdown_secs = game_length / 1000,
+		lang = 'en';
 
 /* The GameScreen view is a child of the main application.
  * By adding the scoreboard and the molehills as it's children,
@@ -120,11 +121,11 @@ function start_game_flow () {
 	
 	animate(scoreboard).wait(1000)
 		.then(function () {
-			scoreboard.setText("Ready ...");
+			scoreboard.setText(text.READY);
 		}).wait(1500).then(function () {
-			scoreboard.setText("Set ...");
+			scoreboard.setText(text.SET);
 		}).wait(1500).then(bind(this, function () {
-			scoreboard.setText("Whack that Mole!");
+			scoreboard.setText(text.GO);
 			//start game ...
 			game_on = true;
 			play_game.call(this);
@@ -184,6 +185,9 @@ function update_countdown () {
  * screen so we may play again.
  */
 function end_game_flow () {
+	var isHighScore = (score > high_score),
+			end_msg = get_end_message(score, isHighScore);
+	
 	this._countdown.setText(''); //clear countdown text
 	//resize scoreboard text to fit everything
 	this._scoreboard.updateOpts({
@@ -196,18 +200,17 @@ function end_game_flow () {
 	});
 	
 	//check for high-score and do appropriate animation
-	if (score > high_score) {
+	if (isHighScore) {
 		high_score = score;
 		this._molehills.forEach(function (molehill) {
 			molehill.endAnimation();
 		});
-		this._scoreboard.setText("You whacked " + score + " moles\nThat's a new high score!\nTap to play again");
 	} else {
-		this._molehills[(this._molehills.length-1) / 2 | 0].endAnimation(true);
-		var s = (score === 1) ? "mole" : "moles",
-				taunt = taunt_messages[Math.random() * taunt_messages.length | 0];
-		this._scoreboard.setText("You whacked " + score + " " + s + ".\n" + taunt + "\nTap to play again");
+		var i = (this._molehills.length-1) / 2 | 0; //just center mole
+		this._molehills[i].endAnimation(true);
 	}
+
+	this._scoreboard.setText(end_msg);
 
 	//slight delay before allowing a tap reset
 	setTimeout(emit_endgame_event.bind(this), 2000);
@@ -244,7 +247,38 @@ function reset_game () {
 	});
 }
 
-var taunt_messages = [
+/*
+ * Strings
+ */
+
+function get_end_message (score, isHighScore) {
+	var moles = (score === 1) ? text.MOLE : text.MOLES,
+			end_msg = text.END_MSG_START + ' ' + score + ' ' + moles + '.\n';
+	
+	if (isHighScore) {
+		end_msg += text.HIGH_SCORE + '\n';
+	} else {
+		//random taunt
+		var i = (Math.random() * text.taunts.length) | 0;
+		end_msg += text.taunts[i] + '\n';
+	}
+	return (end_msg += text.END_MSG_END);
+}
+
+var localized_strings = {
+	en: {
+		READY: "Ready ...",
+		SET: "Set ...",
+		GO: "Whack that Mole!",
+		MOLE: "mole",
+		MOLES: "moles",
+		END_MSG_START: "You whacked",
+		END_MSG_END: "Tap to play again",
+		HIGH_SCORE: "That's a new high score!"
+	}
+};
+		
+localized_strings['en'].taunts = [
 	"Welcome to Loserville, population: you.", //max length
 	"You're an embarrassment!",
 	"You'll never catch me!",
@@ -256,3 +290,6 @@ var taunt_messages = [
 	"Don't hate the playa, hate the game.",
 	"Make like a tree, and get out of here!"
 ];
+
+//object of strings used in game
+text = localized_strings[lang.toLowerCase()];
