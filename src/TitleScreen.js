@@ -21,8 +21,7 @@ exports = Class(ui.ImageView, function (supr) {
 			y: 0,
 			width: device.width,
 			height: device.height,
-			image: "resources/images/title_screen.png",
-			visible: true
+			image: "resources/images/title_screen.png"
 		});
 		
 		supr(this, 'init', [opts]);

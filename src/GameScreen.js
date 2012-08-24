@@ -32,8 +32,7 @@ exports = Class(ui.View, function (supr) {
 			y: 0,
 			width: device.width,
 			height: device.height,
-			backgroundColor: '#37B34A',
-			visible: false
+			backgroundColor: '#37B34A'
 		});
 		
 		supr(this, 'init', [opts]);
