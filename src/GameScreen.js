@@ -37,6 +37,10 @@ exports = Class(ui.View, function (supr) {
 		
 		supr(this, 'init', [opts]);
 
+		/* The start event is emitted from the start button via the main application.
+		 */
+		this.on('app:start', start_game_flow.bind(this));
+		
 		/* The scoreboard displays the "ready, set, go" message,
 		 * the current score, and the end game message. We'll set
 		 * it as a hidden property on our class since we'll use it
@@ -55,10 +59,6 @@ exports = Class(ui.View, function (supr) {
 			multiline: false,
 			color: '#fff'
 		});
-
-		/* The start event is emitted from the start button via the main application.
-		 */
-		this.on('app:start', start_game_flow.bind(this));
 	};
 
 	/*
