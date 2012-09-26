@@ -116,19 +116,19 @@ exports = Class(ui.View, function (supr) {
 /* Manages the intro animation sequence before starting game.
  */
 function start_game_flow () {
-	var scoreboard = this._scoreboard;
+	var that = this;
 	
-	animate(scoreboard).wait(1000)
+	animate(that._scoreboard).wait(1000)
 		.then(function () {
-			scoreboard.setText(text.READY);
+			that._scoreboard.setText(text.READY);
 		}).wait(1500).then(function () {
-			scoreboard.setText(text.SET);
-		}).wait(1500).then(bind(this, function () {
-			scoreboard.setText(text.GO);
+			that._scoreboard.setText(text.SET);
+		}).wait(1500).then(function () {
+			that._scoreboard.setText(text.GO);
 			//start game ...
 			game_on = true;
-			play_game.call(this);
-		}));
+			play_game.call(that);
+		});
 }
 
 /* With everything in place, the actual game play is quite simple.
