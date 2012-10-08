@@ -3,7 +3,7 @@
 	"shortName": "whackthatmole",
 	"title": "Whack-that-Mole!",
 	"icons": {
-		"118": "resources/images/icon.png"
+		"144": "resources/images/icon.png"
 	},
 	"resources": {},
 	"targets": {},

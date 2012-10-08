@@ -107,8 +107,7 @@ exports = Class(ui.View, function (supr) {
 			x: hole_back_img.getWidth()/2 - mole_normal_img.getWidth()/2,
 			y: 0,
 			width: mole_normal_img.getWidth(),
-			height: 40,
-			canHandleEvents: true
+			height: 40
 		});
 		
 		this._moleview = new ui.ImageView({
