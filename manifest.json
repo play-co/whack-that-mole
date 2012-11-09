@@ -5,9 +5,6 @@
 	"icons": {
 		"144": "resources/images/icon.png"
 	},
-	"resources": {},
-	"targets": {},
-	"groups": {},
 	"studio": {
 		"name": "Lil' Varmit Studios",
 		"domain": "lilvarmit.com",
@@ -29,5 +26,9 @@
 		"tapjoyKey": "",
 		"flurryKey": ""
 	},
-	"fonts": []
+	"resources": {},
+	"targets": {},
+	"groups": {},
+	"fonts": [],
+	"sdkVersion": "dev-0.1.0"
 }
