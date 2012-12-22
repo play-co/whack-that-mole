@@ -7,28 +7,9 @@
 	},
 	"studio": {
 		"name": "Lil' Varmit Studios",
-		"domain": "lilvarmit.com",
-		"stagingDomain": "staging.lilvarmit.com"
+		"domain": "lilvarmit.com"
 	},
 	"supportedOrientations": [
 		"portrait"
-	],
-	"android": {
-		"versionCode": 1,
-		"tapjoyId": "",
-		"tapjoyKey": "",
-		"flurryKey": "",
-		"entryPoint": "runtimeNative.launchClient",
-		"tapjoyDaily": {}
-	},
-	"ios": {
-		"tapjoyId": "",
-		"tapjoyKey": "",
-		"flurryKey": ""
-	},
-	"resources": {},
-	"targets": {},
-	"groups": {},
-	"fonts": [],
-	"sdkVersion": "dev-0.1.0"
+	]
 }

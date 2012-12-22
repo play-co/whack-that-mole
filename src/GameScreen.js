@@ -12,14 +12,14 @@ import src.MoleHill as MoleHill;
 
 /* Some game constants.
  */
-var score = 0,
-		high_score = 19,
-		hit_value = 1,
-		mole_interval = 600,
-		game_on = false,
-		game_length = 20000, //20 secs
-		countdown_secs = game_length / 1000,
-		lang = 'en';
+var score = 0;
+var high_score = 19;
+var hit_value = 1;
+var mole_interval = 600;
+var game_on = false;
+var game_length = 20000; //20 secs
+var countdown_secs = game_length / 1000;
+var lang = 'en';
 
 /* The GameScreen view is a child of the main application.
  * By adding the scoreboard and the molehills as it's children,
@@ -39,7 +39,7 @@ exports = Class(ui.View, function (supr) {
 
 		/* The start event is emitted from the start button via the main application.
 		 */
-		this.on('app:start', start_game_flow.bind(this));
+		GC.app.on('app:start', start_game_flow.bind(this));
 		
 		/* The scoreboard displays the "ready, set, go" message,
 		 * the current score, and the end game message. We'll set

@@ -11,17 +11,17 @@ import src.soundcontroller as soundcontroller;
  */
 exports = Class(GC.Application, function () {
 
+	/* Private variables */
+	var titlescreen, gamescreen, sound;
+
 	/* Run after the engine is created and the scene graph is in
 	 * place, but before the resources have been loaded.
 	 */
 	this.initUI = function () {
-		var titlescreen = new TitleScreen(),
-				gamescreen = new GameScreen();
-		
-		//GC.app.view (or this.view here) is a StackView at the root of the scene graph
-		this.view.push(titlescreen);
+		titlescreen = new TitleScreen();
+		gamescreen = new GameScreen();
 
-		var sound = soundcontroller.getSound();
+		sound = soundcontroller.getSound();
 		
 		/* Listen for an event dispatched by the title screen when
 		 * the start button has been pressed. Hide the title screen,
@@ -31,7 +31,7 @@ exports = Class(GC.Application, function () {
 		titlescreen.on('titlescreen:start', function () {
 			sound.play('levelmusic');
 			GC.app.view.push(gamescreen);
-			gamescreen.emit('app:start');
+			GC.app.emit('app:start');
 		});
 		
 		/* When the game screen has signalled that the game is over,
@@ -46,5 +46,8 @@ exports = Class(GC.Application, function () {
 	/* Executed after the asset resources have been loaded.
 	 * If there is a splash screen, it's removed.
 	 */
-	this.launchUI = function () {};
+	this.launchUI = function () {
+		// add the title screen into our scene graph
+		this.view.push(titlescreen);
+	};
 });
