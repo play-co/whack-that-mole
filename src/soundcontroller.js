@@ -1,4 +1,4 @@
-import Sound;
+import AudioManager;
 
 exports.sound = null;
 
@@ -6,7 +6,7 @@ exports.sound = null;
  */
 exports.getSound = function () {
   if (!exports.sound) {
-    exports.sound = new Sound({
+    exports.sound = new AudioManager({
       path: 'resources/sounds',
       files: {
         levelmusic: {
