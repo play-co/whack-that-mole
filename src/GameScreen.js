@@ -4,7 +4,6 @@
  */
 
 import animate;
-import device;
 import ui.View;
 import ui.ImageView;
 import ui.TextView;
@@ -30,17 +29,16 @@ exports = Class(ui.View, function (supr) {
 		opts = merge(opts, {
 			x: 0,
 			y: 0,
-			width: device.width,
-			height: device.height,
+			width: 320,
+			height: 480,
 			backgroundColor: '#37B34A'
 		});
-		
-		supr(this, 'init', [opts]);
 
+		supr(this, 'init', [opts]);
 		/* The start event is emitted from the start button via the main application.
 		 */
 		this.on('app:start', start_game_flow.bind(this));
-		
+
 		/* The scoreboard displays the "ready, set, go" message,
 		 * the current score, and the end game message. We'll set
 		 * it as a hidden property on our class since we'll use it
@@ -50,14 +48,14 @@ exports = Class(ui.View, function (supr) {
 			superview: this,
 			x: 0,
 			y: 15,
-			width: device.width,
+			width: 320,
 			height: 50,
 			autoSize: false,
-			fontSize: 38,
+			size: 38,
 			verticalAlign: 'middle',
-			textAlign: 'center',
-			multiline: false,
-			color: '#fff'
+			horizontalAlign: 'center',
+			wrap: false,
+			color: '#FFFFFF'
 		});
 	};
 
@@ -65,15 +63,16 @@ exports = Class(ui.View, function (supr) {
 	 * Layout the molehills before the view's first render.
 	 */
 	this.buildView = function () {
-		var x_offset = 5,
-				y_offset = 160,
-				y_pad = 25,
-				layout = [[1, 0, 1],
-									[0, 1, 0],
-									[1, 0, 1]];
+		var x_offset = 5;
+		var y_offset = 160;
+		var y_pad = 25;
+		var layout = [[1, 0, 1], [0, 1, 0], [1, 0, 1]];
+
+		this.style.width = 320;
+		this.style.height = 480;
 
 		this._molehills = [];
-		
+
 		for (var row = 0, len = layout.length; row < len; row++) {
 			for (var col = 0; col < len; col++) {
 				if (layout[row][col] !== 0) {
@@ -82,7 +81,7 @@ exports = Class(ui.View, function (supr) {
 					molehill.style.y = y_offset + row * (molehill.style.height + y_pad);
 					this.addSubview(molehill);
 					this._molehills.push(molehill);
-					
+
 					//update score on hit event
 					molehill.on('molehill:hit', bind(this, function () {
 						if (game_on) {
@@ -102,8 +101,8 @@ exports = Class(ui.View, function (supr) {
 			y: -5,
 			width: 50,
 			height: 50,
-			fontSize: 24,
-			color: '#fff',
+			size: 24,
+			color: '#FFFFFF',
 			opacity: 0.7
 		});
 	};
@@ -117,7 +116,7 @@ exports = Class(ui.View, function (supr) {
  */
 function start_game_flow () {
 	var that = this;
-	
+
 	animate(that._scoreboard).wait(1000)
 		.then(function () {
 			that._scoreboard.setText(text.READY);
@@ -165,7 +164,7 @@ function play_game () {
 function tick () {
 	var len = this._molehills.length,
 			molehill = this._molehills[Math.random() * len | 0];
-	
+
 	while (molehill.activeMole) {
 		molehill = this._molehills[Math.random() * len | 0];
 	}
@@ -186,7 +185,7 @@ function update_countdown () {
 function end_game_flow () {
 	var isHighScore = (score > high_score),
 			end_msg = get_end_message(score, isHighScore);
-	
+
 	this._countdown.setText(''); //clear countdown text
 	//resize scoreboard text to fit everything
 	this._scoreboard.updateOpts({
@@ -197,7 +196,7 @@ function end_game_flow () {
 		textAlign: 'left',
 		multiline: true
 	});
-	
+
 	//check for high-score and do appropriate animation
 	if (isHighScore) {
 		high_score = score;
@@ -223,7 +222,7 @@ function emit_endgame_event () {
 		reset_game.call(this);
 	});
 }
-	
+
 /* Reset game counters and assets.
  */
 function reset_game () {
@@ -253,7 +252,7 @@ function reset_game () {
 function get_end_message (score, isHighScore) {
 	var moles = (score === 1) ? text.MOLE : text.MOLES,
 			end_msg = text.END_MSG_START + ' ' + score + ' ' + moles + '.\n';
-	
+
 	if (isHighScore) {
 		end_msg += text.HIGH_SCORE + '\n';
 	} else {
@@ -276,7 +275,7 @@ var localized_strings = {
 		HIGH_SCORE: "That's a new high score!"
 	}
 };
-		
+
 localized_strings['en'].taunts = [
 	"Welcome to Loserville, population: you.", //max length
 	"You're an embarrassment!",

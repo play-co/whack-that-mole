@@ -12,7 +12,7 @@ var mole_normal_img = new Image({url: "resources/images/mole_normal.png"}),
 		mole_down = 35;
 
 exports = Class(ui.View, function (supr) {
-	
+
 	this.init = function (opts) {
 		opts = merge(opts, {
 			width:	hole_back_img.getWidth(),
@@ -31,7 +31,7 @@ exports = Class(ui.View, function (supr) {
 		if (this.activeMole === false) {
 			this.activeMole = true;
 			this.activeInput = true;
-			
+
 			this._animator.now({y: mole_up}, 500, animate.EASE_IN)
 				.wait(1000).then(bind(this, function () {
 					this.activeInput = false;
@@ -47,7 +47,7 @@ exports = Class(ui.View, function (supr) {
 	this.hitMole = function () {
 		if (this.activeMole && this.activeInput) {
 			this.activeInput = false;
-			
+
 			this._animator.clear()
 				.now((function () {
 					this._moleview.setImage(mole_hit_img);
@@ -100,7 +100,7 @@ exports = Class(ui.View, function (supr) {
 			width: hole_back_img.getWidth(),
 			height: hole_back_img.getHeight()
 		});
-		
+
 		this._inputview = new ui.View({
 			superview: this,
 			clip: true,
@@ -109,7 +109,7 @@ exports = Class(ui.View, function (supr) {
 			width: mole_normal_img.getWidth(),
 			height: 40
 		});
-		
+
 		this._moleview = new ui.ImageView({
 			superview: this._inputview,
 			image: mole_normal_img,
@@ -118,7 +118,7 @@ exports = Class(ui.View, function (supr) {
 			width: mole_normal_img.getWidth(),
 			height: mole_normal_img.getHeight()
 		});
-		
+
 		var hole_front = new ui.ImageView({
 			superview: this,
 			canHandleEvents: false,
@@ -133,9 +133,9 @@ exports = Class(ui.View, function (supr) {
 		 */
 		this._animator = animate(this._moleview);
 		this._interval = null;
-		
+
 		var sound = soundcontroller.getSound();
-		
+
 		this._inputview.on('InputSelect', bind(this, function () {
 			if (this.activeInput) {
 				sound.play('whack');
