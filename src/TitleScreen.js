@@ -19,16 +19,13 @@ exports = Class(ui.ImageView, function (supr) {
 		opts = merge(opts, {
 			x: 0,
 			y: 0,
-			width: device.width,
-			height: device.height,
 			image: "resources/images/title_screen.png"
 		});
-		
+
 		supr(this, 'init', [opts]);
 	};
 
 	this.buildView = function () {
-		
 		/* Since the start button is a part the background image,
 		 * we just need to create and position an overlay view that
 		 * will register input events and act as button.
@@ -40,7 +37,7 @@ exports = Class(ui.ImageView, function (supr) {
 			width: 200,
 			height: 100
 		});
-		
+
 		/* Listening for a touch or click event, and will dispatch a
 		 * custom event to the title screen, which is listened for in
 		 * the top-level application file.
