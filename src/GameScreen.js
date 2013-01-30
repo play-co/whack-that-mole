@@ -4,7 +4,6 @@
  */
 
 import animate;
-import device;
 import ui.View;
 import ui.ImageView;
 import ui.TextView;

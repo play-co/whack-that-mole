@@ -1,12 +1,14 @@
 /*
  * The main application file, your game code begins here.
  */
-import device;
 
+//sdk imports
+import device;
+import ui.StackView as StackView;
+//user imports
 import src.TitleScreen as TitleScreen;
 import src.GameScreen as GameScreen;
 import src.soundcontroller as soundcontroller;
-import ui.StackView as StackView;
 
 /* Your application inherits from GC.Application, which is
  * exported and instantiated when the game is run.
@@ -17,8 +19,8 @@ exports = Class(GC.Application, function () {
 	 * place, but before the resources have been loaded.
 	 */
 	this.initUI = function () {
-		var titlescreen = new TitleScreen();
-		var gamescreen = new GameScreen();
+		var titlescreen = new TitleScreen(),
+				gamescreen = new GameScreen();
 
 		this.view.style.backgroundColor = '#30B040';
 

@@ -3,7 +3,6 @@ import ui.View;
 import ui.ImageView;
 import ui.resource.Image as Image;
 import src.soundcontroller as soundcontroller;
-import device;
 
 var mole_normal_img = new Image({url: "resources/images/mole_normal.png"}),
 		mole_hit_img = new Image({url: "resources/images/mole_hit.png"}),

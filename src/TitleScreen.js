@@ -6,7 +6,6 @@
  * and the game screen shown.
  */
 
-import device;
 import ui.View;
 import ui.ImageView;
 
