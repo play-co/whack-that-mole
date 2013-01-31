@@ -32,10 +32,10 @@ exports = Class(ui.View, function (supr) {
 			this.activeMole = true;
 			this.activeInput = true;
 
-			this._animator.now({y: mole_up}, 500, animate.EASE_IN)
+			this._animator.now({y: mole_up}, 500, animate.easeIn)
 				.wait(1000).then(bind(this, function () {
 					this.activeInput = false;
-				})).then({y: mole_down}, 200, animate.EASE_OUT)
+				})).then({y: mole_down}, 200, animate.easeOut)
 				.then(bind(this, function () {
 					this.activeMole = false;
 				}));
