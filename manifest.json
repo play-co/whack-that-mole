@@ -14,17 +14,7 @@
 		"portrait"
 	],
 	"android": {
-		"versionCode": 1,
-		"tapjoyId": "",
-		"tapjoyKey": "",
-		"flurryKey": "",
-		"entryPoint": "runtimeNative.launchClient",
-		"tapjoyDaily": {}
-	},
-	"ios": {
-		"tapjoyId": "",
-		"tapjoyKey": "",
-		"flurryKey": ""
+		"versionCode": 1
 	},
 	"resources": {},
 	"targets": {},
