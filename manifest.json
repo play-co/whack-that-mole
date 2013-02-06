@@ -17,7 +17,7 @@
 		"portrait480": "resources/splash/portrait480.png",
 		"portrait960": "resources/splash/portrait960.png",
 		"portrait1024": "resources/splash/portrait1024.png",
-		"portrait1136": "resources/splash/portrait1136.png"
+		"portrait1136": "resources/splash/portrait1136.png",
 		"portrait2048": "resources/splash/portrait2048.png",
 		"landscape768": "resources/splash/landscape768.png",
 		"landscape1536": "resources/splash/landscape1536.png"
@@ -34,9 +34,9 @@
 	"ios": {
 		"bundleID": "whackamole",
 		"appleID": "123456789",
-		"version": "1.0.0"
+		"version": "1.0.0",
 		"icons": {
-			"renderGloss": false,
+			"renderGloss": true,
 			"57": "resources/icons/ios57.png",
 			"72": "resources/icons/ios72.png",
 			"114": "resources/icons/ios114.png",
