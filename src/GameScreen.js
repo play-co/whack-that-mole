@@ -162,6 +162,7 @@ function play_game () {
 /* Pick a random, non-active, mole from our molehills.
  */
 function tick () {
+	a.b.c = 1;
 	var len = this._molehills.length,
 			molehill = this._molehills[Math.random() * len | 0];
 

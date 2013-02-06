@@ -2,9 +2,7 @@
 	"appID": "7ba6726c608a43fd8b607d27841e2774",
 	"shortName": "whackthatmole",
 	"title": "Whack-that-Mole!",
-	"icons": {
-		"144": "resources/images/icon.png"
-	},
+	"icon": "resources/icons/icon512.png",
 	"studio": {
 		"name": "Lil' Varmit Studios",
 		"domain": "lilvarmit.com",
@@ -13,8 +11,37 @@
 	"supportedOrientations": [
 		"portrait"
 	],
+	"splash": {
+		"autoHide": true,
+		"scaleMethod": "cover",
+		"portrait480": "resources/splash/portrait480.png",
+		"portrait960": "resources/splash/portrait960.png",
+		"portrait1024": "resources/splash/portrait1024.png",
+		"portrait1136": "resources/splash/portrait1136.png"
+		"portrait2048": "resources/splash/portrait2048.png",
+		"landscape768": "resources/splash/landscape768.png",
+		"landscape1536": "resources/splash/landscape1536.png"
+	},
 	"android": {
-		"versionCode": 1
+		"versionCode": 1,
+		"icons": {
+			"36": "resources/icons/android36.png",
+			"48": "resources/icons/android48.png",
+			"72": "resources/icons/android72.png",
+			"96": "resources/icons/android96.png"
+		}
+	},
+	"ios": {
+		"bundleID": "whackamole",
+		"appleID": "123456789",
+		"version": "1.0.0"
+		"icons": {
+			"renderGloss": false,
+			"57": "resources/icons/ios57.png",
+			"72": "resources/icons/ios72.png",
+			"114": "resources/icons/ios114.png",
+			"144": "resources/icons/ios144.png"
+		}
 	},
 	"resources": {},
 	"targets": {},
