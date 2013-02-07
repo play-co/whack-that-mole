@@ -2,7 +2,6 @@
 	"appID": "7ba6726c608a43fd8b607d27841e2774",
 	"shortName": "whackthatmole",
 	"title": "Whack-that-Mole!",
-	"icon": "resources/icons/icon512.png",
 	"studio": {
 		"name": "Lil' Varmit Studios",
 		"domain": "lilvarmit.com",
@@ -11,6 +10,7 @@
 	"supportedOrientations": [
 		"portrait"
 	],
+	"icon": "resources/icons/icon512.png",
 	"splash": {
 		"autoHide": true,
 		"scaleMethod": "cover",
