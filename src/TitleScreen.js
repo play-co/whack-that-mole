@@ -22,9 +22,11 @@ exports = Class(ui.ImageView, function (supr) {
 		});
 
 		supr(this, 'init', [opts]);
-	};
 
-	this.buildView = function () {
+		this.build();
+	}
+
+	this.build = function() {
 		/* Since the start button is a part the background image,
 		 * we just need to create and position an overlay view that
 		 * will register input events and act as button.

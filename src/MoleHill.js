@@ -23,6 +23,8 @@ exports = Class(ui.View, function (supr) {
 
 		this.activeMole = false;
 		this.activeInput = false;
+
+		this.build();
 	};
 
 	/* Set the mole as active and animate it up.
@@ -91,7 +93,7 @@ exports = Class(ui.View, function (supr) {
 	/*
 	 * Layout
 	 */
-	this.buildView = function () {
+	this.build = function () {
 		var hole_back = new ui.ImageView({
 			superview: this,
 			image: hole_back_img,
