@@ -24,7 +24,7 @@ exports = Class(ui.ImageView, function (supr) {
 		supr(this, 'init', [opts]);
 
 		this.build();
-	}
+	};
 
 	this.build = function() {
 		/* Since the start button is a part the background image,
