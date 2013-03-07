@@ -35,6 +35,14 @@ exports = Class(ui.View, function (supr) {
 		});
 
 		supr(this, 'init', [opts]);
+
+		this.build();
+	};
+
+	/*
+	 * Layout the scoreboard and molehills.
+	 */
+	this.build = function () {
 		/* The start event is emitted from the start button via the main application.
 		 */
 		this.on('app:start', start_game_flow.bind(this));
@@ -57,12 +65,7 @@ exports = Class(ui.View, function (supr) {
 			wrap: false,
 			color: '#FFFFFF'
 		});
-	};
 
-	/*
-	 * Layout the molehills before the view's first render.
-	 */
-	this.buildView = function () {
 		var x_offset = 5;
 		var y_offset = 160;
 		var y_pad = 25;
