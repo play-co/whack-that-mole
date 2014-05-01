@@ -79,7 +79,7 @@ exports = Class(ui.View, function (supr) {
 			}));
 	};
 
-	/* Rest the molehill properties for the next game.
+	/* Reset the molehill properties for the next game.
 	 */
 	this.resetMole = function () {
 		clearInterval(this._interval);
