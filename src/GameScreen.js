@@ -31,7 +31,6 @@ exports = Class(ui.View, function (supr) {
 			y: 0,
 			width: 320,
 			height: 480,
-			backgroundColor: '#37B34A'
 		});
 
 		supr(this, 'init', [opts]);
