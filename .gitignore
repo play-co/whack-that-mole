@@ -1,4 +1,4 @@
 build/
-sdk
+modules
 .DS_Store
 .version
