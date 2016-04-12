@@ -10,7 +10,7 @@
   },
   "appID": "7ba6726c608a43fd8b607d27841e2774",
   "dependencies": {
-    "devkit-core": "https://github.com/gameclosure/devkit-core#v3.0.2"
+    "devkit-core": "https://github.com/gameclosure/devkit-core#v4.5.0"
   },
   "icon": "resources/icons/icon512.png",
   "ios": {
