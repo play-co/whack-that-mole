@@ -10,7 +10,7 @@
   },
   "appID": "7ba6726c608a43fd8b607d27841e2774",
   "dependencies": {
-    "devkit-core": "https://github.com/gameclosure/devkit-core#v3.0.2"
+    "devkit-core": "https://github.com/hashcube/devkit-core#v4.5.3-41"
   },
   "icon": "resources/icons/icon512.png",
   "ios": {
@@ -22,7 +22,7 @@
       "57": "resources/icons/ios57.png",
       "72": "resources/icons/ios72.png"
     },
-    "version": "1.0.0"
+    "version": "2.0.0"
   },
   "shortName": "whackthatmole",
   "splash": {
