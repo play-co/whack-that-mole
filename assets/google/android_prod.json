@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1234567",
+    "firebase_url": "https://mahong-quest-free-57499227.firebaseio.com",
+    "project_id": "mahong-quest-free-57499227",
+    "storage_bucket": "mahong-quest-free-57499227.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801213421495:android:91ee77df51050cf1",
+        "android_client_info": {
+          "package_name": "com.hashcube.whack-sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12345.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hashcube.whack-sample",
+            "certificate_hash": "C4AE59C1F7A7CD18291"
+          }
+        },
+        {
+          "client_id": "1234.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "KEYHERE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12345.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

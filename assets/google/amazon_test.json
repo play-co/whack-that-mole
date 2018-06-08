@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "621443799882",
+    "firebase_url": "https://whack-sample-quest-amazon-free.firebaseio.com",
+    "project_id": "whack-sample-quest-amazon-free",
+    "storage_bucket": "whack-sample-quest-amazon-free.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621443799882:android:91ee77df51050cf1",
+        "android_client_info": {
+          "package_name": "com.hashcube.whack-sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621443799882.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "YOURKEY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
