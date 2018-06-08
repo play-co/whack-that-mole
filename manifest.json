@@ -13,6 +13,19 @@
     }
   },
   "android": {
+    "app_links": [
+      {
+        "host": "whackamole-sample.com",
+        "pathPrefix": "/sampleprefix",
+        "scheme": "https"
+      },
+      {
+        "host": "mahjongquestfree.com",
+        "pathPrefix": "/testplay",
+        "scheme": "http"
+      }
+    ],
+    "billingSignature": "YOUR0SIGNATURE0HERE",
     "crashlyticsKey": "dcef80eddb727b66936ac9b44bf876bc0d55c690",
     "facebookAppID": "123456",
     "facebookDisplayName": "Whack-that-Mole Test",
@@ -32,6 +45,7 @@
   },
   "appID": "7ba6726c608a43fd8b607d27841e2774",
   "dependencies": {
+    "billing": "git@github.com:hashcube/billing.git#v4.3.11",
     "crashlytics": "git@github.com:hashcube/crashlytics.git#v1.0.2",
     "devkit-core": "https://github.com/hashcube/devkit-core#v4.5.3-41",
     "facebook": "git@github.com:hashcube/facebook.git#v3.3.17",
