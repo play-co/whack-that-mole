@@ -20,8 +20,8 @@
         "scheme": "https"
       },
       {
-        "host": "mahjongquestfree.com",
-        "pathPrefix": "/testplay",
+        "host": "whackamole.com",
+        "pathPrefix": "/sampleprefix",
         "scheme": "http"
       }
     ],
