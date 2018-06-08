@@ -1,5 +1,40 @@
 {
+  "addons": {
+    "crashlytics": {
+      "APIKey": "dcef80eddb727b66936ac9b44bf876bc0d55c690"
+    },
+    "facebook": {
+      "facebookAppID": "1234556",
+      "facebookDisplayName": "Whack-that-Mole Test"
+    },
+    "firebase": {
+      "android": "assets/google/android_test.json",
+      "ios": "assets/google/ios_test.plist"
+    }
+  },
   "android": {
+    "app_links": [
+      {
+        "host": "whackamole-sample.com",
+        "pathPrefix": "/sampleprefix",
+        "scheme": "https"
+      },
+      {
+        "host": "whackamole.com",
+        "pathPrefix": "/sampleprefix",
+        "scheme": "http"
+      }
+    ],
+    "billingSignature": "YOUR0SIGNATURE0HERE",
+    "crashlyticsKey": "dcef80eddb727b66936ac9b44bf876bc0d55c690",
+    "facebookAppID": "123456",
+    "facebookDisplayName": "Whack-that-Mole Test",
+    "flurryKey": "TQDFDGIUDFGK876DSF",
+    "freshchatAppID": "123456-123-12345-12345-1234567890",
+    "freshchatAppKey": "1234-1234-1234-1234-123456789",
+    "freshchatEmail": "support@whackamole.com",
+    "freshchatTag": "whackthatmole",
+    "gameplayID": "261900989243",
     "icons": {
       "36": "resources/icons/android36.png",
       "48": "resources/icons/android48.png",
@@ -10,20 +45,37 @@
   },
   "appID": "7ba6726c608a43fd8b607d27841e2774",
   "dependencies": {
-    "devkit-core": "https://github.com/gameclosure/devkit-core#v3.0.2"
+    "billing": "git@github.com:hashcube/billing.git#v4.3.11",
+    "crashlytics": "git@github.com:hashcube/crashlytics.git#v1.0.2",
+    "devkit-core": "https://github.com/hashcube/devkit-core#v4.5.3-41",
+    "facebook": "git@github.com:hashcube/facebook.git#v3.3.17",
+    "firebase": "git@github.com:hashcube/firebase.git#v1.1.10",
+    "flurry": "git@github.com:hashcube/flurry.git#v2.0.3",
+    "freshchat": "git@github.com:hashcube/freshchat.git#v1.0.7",
+    "gameplay": "git@github.com:hashcube/gameplay.git#v3.2.14",
+    "onesignal": "git@github.com:hashcube/onesignal.git#v2.3.2"
   },
   "icon": "resources/icons/icon512.png",
   "ios": {
     "appleID": "123456789",
     "bundleID": "whackamole",
+    "crashlyticsBuildSecret": "1234567",
+    "crashlyticsKey": "123456789",
+    "flurryKey": "YOURKEY125341624",
+    "freshchatAppID": "123456-123-12345-12345-1234567890",
+    "freshchatAppKey": "1234-1234-1234-1234-123456789",
+    "freshchatEmail": "support@whackamole.com",
+    "freshchatTag": "whackthatmole",
     "icons": {
       "114": "resources/icons/ios114.png",
       "144": "resources/icons/ios144.png",
       "57": "resources/icons/ios57.png",
       "72": "resources/icons/ios72.png"
     },
+    "onesignalAppID": "12345-1234-1234-12345-1234567",
     "version": "1.0.0"
   },
+  "onesignalAppID": "12345-1234-1234-12345-1234567",
   "shortName": "whackthatmole",
   "splash": {
     "autoHide": true,

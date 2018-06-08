@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "1234567",
+    "firebase_url": "https://whacksample-31916815.firebaseio.com",
+    "project_id": "whacksample-31916815",
+    "storage_bucket": "whacksample-31916815.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261900989243:android:5996f48607a0039c",
+        "android_client_info": {
+          "package_name": "com.hashcube.whacksample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83254.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hashcube.whacksample",
+            "certificate_hash": "A7900C4AE59C1F7A7CD18291"
+          }
+        },
+        {
+          "client_id": "whacksample.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "whacksample.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "KEYHERE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12345.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
